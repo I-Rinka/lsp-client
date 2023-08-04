@@ -23,6 +23,11 @@ def interact(json_rpc):
     r = json_rpc.wait_for(r)
     assert len(r) == 1
     assert r[0]['uri'].endswith('/first.h')
+    
+    tst = os.getcwd() + '/cpp-test/src/first.cpp'
+    
+    r = json_rpc.request(ls.FindReferences(tst, 13, 3))
+    r = json_rpc.wait_for(r)
 
     # ctrl-click on bar()
     r = json_rpc.request(ls.GotoDefinition(paths[0], 18, 3))
@@ -41,12 +46,12 @@ def interact(json_rpc):
 
 
 def main():
-    for build in (1, 2):
-        ret = os.system('make -C cpp-test/build-{}'.format(build))
-        if ret != 0:
-            return ret
+    # for build in (1, 2):
+    #     ret = os.system('make -C cpp-test/build-{}'.format(build))
+    #     if ret != 0:
+    #         return ret
 
-    ls.run(interact, {
+    ls.run(interact, cmdline_args='--compile-commands-dir=/root/ls-interact/cpp-test/build-1/', initialize_params={
         'rootUri': 'file://' + os.getcwd() + '/cpp-test/src',
     })
 

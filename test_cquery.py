@@ -35,7 +35,7 @@ def interact(json_rpc):
 
 
 def main():
-    if not os.path.exists('./cpp-test/build/compile_commands.json'):
+    if not os.path.exists('./cpp-test/build-2/compile_commands.json'):
         print('Could not find compile_commands.json, please run make in ./cpp-test/build.')
         return
 

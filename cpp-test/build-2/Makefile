@@ -1,6 +1,6 @@
 .PHONY: bear
 bear:
-	bear -a make program
+	bear -- make program
 
 program: first.o second.o
 	c++ $^ -o $@
